@@ -11,6 +11,8 @@
   width: 70%;
   height: 70%;
   display: flex;
+  flex-direction: row;
+  
 }
 
 .loginLeft,
@@ -82,3 +84,34 @@
     font-weight: 500;
     cursor: pointer;
 }
+@media screen and (max-width: 900px){
+  .loginWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .loginBox{
+    height: fit-content;
+  }
+  .loginInput{
+    margin: 10px;
+}
+.loginButton,.loginRegisterButton{
+  margin: 10px;
+  padding: 10px;
+  height: auto;
+}
+.login {
+  height: auto;
+}
+.loginBox{
+  margin-bottom: 80px;
+}
+ }
+ @media screen and (max-width: 450px){
+  .loginInput{
+    font-size: 14px;
+}
+.loginButton,.loginRegisterButton{
+  font-size: 14px;
+}
+ }

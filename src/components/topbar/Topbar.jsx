@@ -73,7 +73,7 @@ export default function Topbar() {
                         </polyline>
                         <line x1="21" y1="12" x2="9" y2="12">
                         </line>
-                    </svg>
+                    </svg> <span>Logout</span>
                 </div>) : (<div></div>)}
     </>
     

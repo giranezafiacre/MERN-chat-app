@@ -97,8 +97,8 @@
 #logout{
   position: fixed;
    top: 60px; 
-   left: 90vw;
-   width: 10vw;
+   left: calc(100vw - 200px);
+   width: 200px;
    display: flex;
    justify-content: center;
   padding: 20px;
@@ -109,4 +109,37 @@
 }
 #logout > svg{
   position: relative;
+  margin-right: 10px;
 }
+@media screen and (max-width: 900px){
+  .loginWrapper {
+    display: flex;
+    flex-direction: column;
+  }
+  .loginBox{
+    height: fit-content;
+  }
+  .loginInput{
+    margin: 10px;
+}
+.loginButton,.loginRegisterButton{
+  margin: 10px;
+  padding: 10px;
+  height: auto;
+}
+.login {
+  height: auto;
+}
+.loginBox{
+  margin-bottom: 80px;
+}
+ }
+ @media screen and (max-width: 670px){
+  .topbarCenter,.topbarLinks,.topbarIcons{
+    display: none;
+  }
+  .logo {
+    font-size: 18px;
+    margin-left:5px;
+  }
+ }

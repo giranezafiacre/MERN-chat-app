@@ -1,4 +1,4 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef } from "react";
 import "./login.css";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
@@ -8,6 +8,7 @@ export default function Login() {
   const email = useRef();
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
+  const { user } = useContext(AuthContext)
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -16,7 +17,13 @@ export default function Login() {
       dispatch
     );
   };
-
+  useEffect(() => {
+    const getMessages = async () => {
+        console.log('user:',user);
+}
+getMessages();
+  }
+, [user])
   return (
     <div className="login">
       <div className="loginWrapper">
@@ -52,7 +59,7 @@ export default function Login() {
             </button>
             <span className="loginForgot">Forgot Password?</span>
             <button className="loginRegisterButton" onClick={(e)=>{
-                window.location.href = 'https://awesome-jennings-229f16.netlify.app/register'
+                window.location.href = process.env.REACT_APP_FRONTEND+'register'
               }}>
                 Create a New Account
             </button>
