@@ -15,6 +15,7 @@ export default function Messenger() {
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([])
+    const[show,setShow] = useState()
     const socket = useRef();
     const { user } = useContext(AuthContext)
     const scrollRef = useRef();
@@ -48,7 +49,9 @@ export default function Messenger() {
             setOnlineUsers(usrs)
         })
     }, [user])
-
+    useEffect(() => {
+        setShow(JSON.parse(localStorage.getItem('show')))
+    }, [localStorage.getItem('show')])
     useEffect(() => {
         const getConversations = async () => {
             try {
@@ -105,7 +108,7 @@ export default function Messenger() {
     return (
         <>
             <Topbar />
-            {JSON.parse(localStorage.getItem('show'))?
+            {show?
             (<div onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('show');
