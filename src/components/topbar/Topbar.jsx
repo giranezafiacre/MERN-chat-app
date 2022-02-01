@@ -46,7 +46,8 @@ export default function Topbar() {
         </div>
         {/* <Link to={`/profile/${user.username}`}> */}
           <img onClick={()=>{
-            localStorage.setItem('show','true')
+            const show = JSON.parse(localStorage.getItem('show'));
+            localStorage.setItem('show',show?'false':'true')
           }}
             src={
               user.profilePicture

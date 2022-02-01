@@ -52,7 +52,7 @@ export default function Messenger() {
             setOnlineUsers(usrs)
         })
     }, [user])
-    
+
     useEffect(() => {
         const getConversations = async () => {
             try {
@@ -112,6 +112,7 @@ export default function Messenger() {
             <Topbar />
             <div style={{display:showLogout?'flex':'none'}} onClick={()=>{
                     localStorage.removeItem('user');
+                    localStorage.removeItem('show');
                     window.location.href='https://awesome-jennings-229f16.netlify.app/';
                 }} id='logout'>
                     <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
