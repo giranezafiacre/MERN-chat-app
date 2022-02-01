@@ -122,7 +122,7 @@ export default function Messenger() {
                         </line>
                     </svg>
                 </div>)
-        }else return;
+        }else return(<div></div>);
     }
     return (
         <>
