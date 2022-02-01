@@ -41,7 +41,6 @@ export default function Messenger() {
     useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...prev, arrivalMessage])
-
     }, [arrivalMessage, currentChat])
     useEffect(() => {
         socket.current.emit("addUser", user._id)
@@ -53,6 +52,7 @@ export default function Messenger() {
             setOnlineUsers(usrs)
         })
     }, [user])
+    
     useEffect(() => {
         const getConversations = async () => {
             try {
@@ -65,6 +65,7 @@ export default function Messenger() {
         }
         getConversations()
     }, [user._id])
+
     useEffect(() => {
         const getMessages = async () => {
             try {
