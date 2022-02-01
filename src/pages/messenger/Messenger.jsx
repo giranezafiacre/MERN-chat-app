@@ -51,7 +51,7 @@ export default function Messenger() {
     }, [user])
     useEffect(() => {
         setShow(JSON.parse(localStorage.getItem('show')))
-    }, [localStorage.getItem('show')])
+    }, [])
     useEffect(() => {
         const getConversations = async () => {
             try {
