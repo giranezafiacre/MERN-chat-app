@@ -18,7 +18,6 @@ export default function Messenger() {
     const socket = useRef();
     const { user } = useContext(AuthContext)
     const scrollRef = useRef();
-    const [showLogout, setShowLogout] = useState(false)
     useEffect(() => {
         socket.current = io("https://socket-fiacre.herokuapp.com");
         console.log('now');
