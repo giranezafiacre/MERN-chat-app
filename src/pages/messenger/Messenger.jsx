@@ -18,7 +18,7 @@ export default function Messenger() {
     const socket = useRef();
     const { user } = useContext(AuthContext)
     const scrollRef = useRef();
-    const [showLogout,setShowLogout] = useState(false)
+    const [showLogout, setShowLogout] = useState(false)
     useEffect(() => {
         socket.current = io("https://socket-fiacre.herokuapp.com");
         console.log('now');
@@ -36,7 +36,7 @@ export default function Messenger() {
         });
     }, [])
     useEffect(() => {
-       setShowLogout(JSON.parse(localStorage.getItem('show'))||null)
+        setShowLogout(JSON.parse(localStorage.getItem('show')) || null)
     }, [])
     useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
@@ -106,14 +106,13 @@ export default function Messenger() {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [messages])
-
-    return (
-        <>
-            <Topbar />
-            <div style={{display:showLogout?'flex':'none'}} onClick={()=>{
+    const showLogoutFunc=()=>{
+        if (showLogout) {
+            return (
+                <div onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('show');
-                    window.location.href='https://awesome-jennings-229f16.netlify.app/';
+                    window.location.href = 'https://awesome-jennings-229f16.netlify.app/';
                 }} id='logout'>
                     <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
@@ -122,7 +121,13 @@ export default function Messenger() {
                         <line x1="21" y1="12" x2="9" y2="12">
                         </line>
                     </svg>
-                </div>
+                </div>)
+        }else return;
+    }
+    return (
+        <>
+            <Topbar />
+            {showLogoutFunc}
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
