@@ -37,7 +37,8 @@ export default function Messenger() {
     }, [])
     useEffect(() => {
         setShowLogout(JSON.parse(localStorage.getItem('show')) || null)
-    }, [])
+        console.log(showLogout)
+    }, [showLogout])
     useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...prev, arrivalMessage])
