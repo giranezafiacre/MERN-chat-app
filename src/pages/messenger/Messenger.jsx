@@ -15,7 +15,7 @@ export default function Messenger() {
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
     const [onlineUsers, setOnlineUsers] = useState([])
-    const[show,setShow] = useState()
+    const[show,setShow] = useState(false)
     const socket = useRef();
     const { user } = useContext(AuthContext)
     const scrollRef = useRef();
@@ -51,7 +51,8 @@ export default function Messenger() {
     }, [user])
     useEffect(() => {
         setShow(JSON.parse(localStorage.getItem('show')))
-    }, [])
+        console.log(show)
+    }, [show])
     useEffect(() => {
         const getConversations = async () => {
             try {
