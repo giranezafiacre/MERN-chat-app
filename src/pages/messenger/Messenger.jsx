@@ -106,10 +106,11 @@ export default function Messenger() {
     useEffect(() => {
         scrollRef.current?.scrollIntoView({ behavior: "smooth" })
     }, [messages])
-    const showLogoutFunc=()=>{
-        if (showLogout) {
-            return (
-                <div onClick={() => {
+    return (
+        <>
+            <Topbar />
+            {showLogout?
+            <div onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('show');
                     window.location.href = 'https://awesome-jennings-229f16.netlify.app/';
@@ -121,13 +122,7 @@ export default function Messenger() {
                         <line x1="21" y1="12" x2="9" y2="12">
                         </line>
                     </svg>
-                </div>)
-        }else return(<div></div>);
-    }
-    return (
-        <>
-            <Topbar />
-            {showLogoutFunc}
+                </div>:<div></div>}
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
