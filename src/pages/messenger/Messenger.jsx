@@ -105,7 +105,7 @@ export default function Messenger() {
     return (
         <>
             <Topbar />
-            {(JSON.parse(localStorage.getItem('show'))===true)?
+            {(JSON.parse(localStorage.getItem('show'))==true)?
             (<div onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('show');
