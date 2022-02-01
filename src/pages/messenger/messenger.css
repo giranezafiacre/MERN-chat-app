@@ -59,3 +59,18 @@
  color: lightgray; 
  cursor: default;
 }
+#logout{
+    position: fixed;
+     top: 60px; 
+     left: 90vw;
+     width: 10vw;
+     justify-content: center;
+    padding: 20px;
+    cursor: pointer;
+}
+#logout:hover{
+    background-color: antiquewhite;
+}
+#logout > svg{
+    position: relative;
+}

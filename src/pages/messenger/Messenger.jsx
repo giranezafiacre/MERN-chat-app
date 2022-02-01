@@ -14,11 +14,11 @@ export default function Messenger() {
     const [messages, setMessages] = useState([])
     const [newMessage, setNewMessage] = useState("");
     const [arrivalMessage, setArrivalMessage] = useState(null);
-    const [onlineUsers,setOnlineUsers] = useState([])
+    const [onlineUsers, setOnlineUsers] = useState([])
     const socket = useRef();
     const { user } = useContext(AuthContext)
     const scrollRef = useRef();
-   
+    const [showLogout,setShowLogout] = useState(false)
     useEffect(() => {
         socket.current = io("https://socket-fiacre.herokuapp.com");
         console.log('now');
@@ -26,7 +26,7 @@ export default function Messenger() {
     useEffect(() => {
         console.log('now again');
         socket.current.on("getMessage", (data) => {
-            console.log('there is data:',data)
+            console.log('there is data:', data)
             setArrivalMessage({
                 _id: data._id,
                 sender: data.senderId,
@@ -35,7 +35,9 @@ export default function Messenger() {
             })
         });
     }, [])
-
+    useEffect(() => {
+       setShowLogout(JSON.parse(localStorage.getItem('show'))||null)
+    }, [])
     useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...prev, arrivalMessage])
@@ -44,9 +46,9 @@ export default function Messenger() {
     useEffect(() => {
         socket.current.emit("addUser", user._id)
         socket.current.on("getUsers", users => {
-            const onUsers=users.users
-            const usrs=(user._id===process.env.REACT_APP_ADMIN_ID)?onUsers.filter(usr=>usr.userId!==user._id):
-            onUsers.filter(usr=>usr.userId===process.env.REACT_APP_ADMIN_ID)
+            const onUsers = users.users
+            const usrs = (user._id === process.env.REACT_APP_ADMIN_ID) ? onUsers.filter(usr => usr.userId !== user._id) :
+                onUsers.filter(usr => usr.userId === process.env.REACT_APP_ADMIN_ID)
             console.log(usrs)
             setOnlineUsers(usrs)
         })
@@ -54,7 +56,7 @@ export default function Messenger() {
     useEffect(() => {
         const getConversations = async () => {
             try {
-                const res = await axios.get(process.env.REACT_APP_URL+"conversations/" + user._id);
+                const res = await axios.get(process.env.REACT_APP_URL + "conversations/" + user._id);
                 console.log(res.data)
                 setConversations(res.data)
             } catch (error) {
@@ -66,7 +68,7 @@ export default function Messenger() {
     useEffect(() => {
         const getMessages = async () => {
             try {
-                const res = await axios.get(process.env.REACT_APP_URL+"messages/" + currentChat?._id)
+                const res = await axios.get(process.env.REACT_APP_URL + "messages/" + currentChat?._id)
                 setMessages(res.data)
             } catch (error) {
                 console.log(error)
@@ -86,7 +88,7 @@ export default function Messenger() {
 
 
         try {
-            const res = await axios.post(process.env.REACT_APP_URL+"messages", message);
+            const res = await axios.post(process.env.REACT_APP_URL + "messages", message);
             setMessages([...messages, res.data])
             const receiverId = currentChat.members.find(member => member !== user._id)
             socket.current.emit("sendMessage", {
@@ -107,6 +109,18 @@ export default function Messenger() {
     return (
         <>
             <Topbar />
+            <div style={{display:showLogout?'flex':'none'}} onClick={()=>{
+                    localStorage.removeItem('user');
+                    window.location.href='https://awesome-jennings-229f16.netlify.app/';
+                }} id='logout'>
+                    <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <polyline points="16 17 21 12 16 7">
+                        </polyline>
+                        <line x1="21" y1="12" x2="9" y2="12">
+                        </line>
+                    </svg>
+                </div>
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
@@ -143,11 +157,11 @@ export default function Messenger() {
                 <div className="chatOnline">
                     <div className="chatOnlineWrapper">
                         {
-                        onlineUsers?onlineUsers.map(usr=>
+                            onlineUsers ? onlineUsers.map(usr =>
                             (<div key={usr.userId}>
-                                    <ChatOnline userId={usr.userId}/>
+                                <ChatOnline userId={usr.userId} />
                             </div>)
-                        ):(<h2>no online user yet</h2>)
+                            ) : (<h2>no online user yet</h2>)
                         }
                     </div>
                 </div>
