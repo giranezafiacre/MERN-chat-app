@@ -36,10 +36,6 @@ export default function Messenger() {
         });
     }, [])
     useEffect(() => {
-        setShowLogout(JSON.parse(localStorage.getItem('show')) || null)
-        console.log(showLogout)
-    }, [showLogout])
-    useEffect(() => {
         arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
             setMessages((prev) => [...prev, arrivalMessage])
     }, [arrivalMessage, currentChat])
@@ -110,7 +106,7 @@ export default function Messenger() {
     return (
         <>
             <Topbar />
-            {showLogout?
+            {(JSON.parse(localStorage.getItem('show'))===true)?
             (<div onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('show');
