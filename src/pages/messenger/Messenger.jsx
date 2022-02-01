@@ -110,7 +110,7 @@ export default function Messenger() {
         <>
             <Topbar />
             {showLogout?
-            <div onClick={() => {
+            (<div onClick={() => {
                     localStorage.removeItem('user');
                     localStorage.removeItem('show');
                     window.location.href = 'https://awesome-jennings-229f16.netlify.app/';
@@ -122,7 +122,7 @@ export default function Messenger() {
                         <line x1="21" y1="12" x2="9" y2="12">
                         </line>
                     </svg>
-                </div>:<div></div>}
+                </div>):(<div></div>)}
             <div className="messenger">
                 <div className="chatMenu">
                     <div className="chatMenuWrapper">
